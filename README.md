@@ -20,6 +20,145 @@ It can be installed in whichever way you prefer, but we recommend [Composer][pac
 
 ## Documentation
 
+#### `sort(array $arr, callable $fn, integer $order = Graze\Sort\ASC);`
+#### `sort(array $arr, callable[] $fns, integer $order = Graze\Sort\ASC);`
+> Sort
+>
+This function applies PHP's `usort` with a given `$fn` or `$fns` to an array
+of values. Multiple `$fns` can be provided and will be applied in order
+until comparison values no longer match.
+
+```php
+$list = [2, 1, 3, 2, 3, 2, 2, 1, 3, 1, 2, 3, 1, 1, 1, 3, 3, 2];
+
+$list = \Graze\Sort\sort(function ($v) {
+    return $v;
+});
+```
+```php
+$list = [
+    (object) ['foo' => 1, 'bar' => 3],
+    (object) ['foo' => 3, 'bar' => 2],
+    (object) ['foo' => 2, 'bar' => 1],
+    (object) ['foo' => 2, 'bar' => 2],
+    (object) ['foo' => 3, 'bar' => 3],
+    (object) ['foo' => 1, 'bar' => 1],
+    (object) ['foo' => 2, 'bar' => 3],
+    (object) ['foo' => 3, 'bar' => 1],
+    (object) ['foo' => 1, 'bar' => 2]
+];
+
+$byFoo = function ($v) { return $v->foo; };
+$byBar = function ($v) { return $v->bar; };
+
+$list = \Graze\Sort\sort_transform([$byFoo, $byBar]);
+```
+
+#### `msort(array $arr, callable $fn, integer $order = Graze\Sort\ASC);`
+#### `msort(array $arr, callable[] $fns, integer $order = Graze\Sort\ASC);`
+> Memoized sort
+>
+This function applies PHP's `usort` with a given `$fn` or `$fns` to an array
+of values. Multiple `$fns` can be provided and will be applied in order
+until comparison values no longer match. Values returned by `$fn` will be
+stored for use throughout the sorting algorithm.
+
+```php
+$list = [2, 1, 3, 2, 3, 2, 2, 1, 3, 1, 2, 3, 1, 1, 1, 3, 3, 2];
+
+$list = \Graze\Sort\msort(function ($v) {
+    sleep(100);
+    return $v;
+});
+```
+```php
+$list = [
+    (object) ['foo' => 1, 'bar' => 3],
+    (object) ['foo' => 3, 'bar' => 2],
+    (object) ['foo' => 2, 'bar' => 1],
+    (object) ['foo' => 2, 'bar' => 2],
+    (object) ['foo' => 3, 'bar' => 3],
+    (object) ['foo' => 1, 'bar' => 1],
+    (object) ['foo' => 2, 'bar' => 3],
+    (object) ['foo' => 3, 'bar' => 1],
+    (object) ['foo' => 1, 'bar' => 2]
+];
+
+$byFoo = function ($v) { sleep(50); return $v->foo; };
+$byBar = function ($v) { sleep(50); return $v->bar; };
+
+$list = \Graze\Sort\msort([$byFoo, $byBar]);
+```
+
+#### `schwartzian_sort(array $arr, callable $fn, integer $order = Graze\Sort\ASC);`
+#### `schwartzian_sort(array $arr, callable[] $fns, integer $order = Graze\Sort\ASC);`
+> Schwartzian sort
+>
+This function applies a [Schwartzian Transform][schwartz] sorting algorithm to
+an array of values. Multiple `$fns` can be provided and on sort will be applied
+in order until comparison values no longer match.
+
+```php
+$list = [2, 1, 3, 2, 3, 2, 2, 1, 3, 1, 2, 3, 1, 1, 1, 3, 3, 2];
+
+$list = \Graze\Sort\schwartzian_sort($list, function ($v) {
+    return $v;
+});
+```
+```php
+$list = [
+    (object) ['foo' => 1, 'bar' => 3],
+    (object) ['foo' => 3, 'bar' => 2],
+    (object) ['foo' => 2, 'bar' => 1],
+    (object) ['foo' => 2, 'bar' => 2],
+    (object) ['foo' => 3, 'bar' => 3],
+    (object) ['foo' => 1, 'bar' => 1],
+    (object) ['foo' => 2, 'bar' => 3],
+    (object) ['foo' => 3, 'bar' => 1],
+    (object) ['foo' => 1, 'bar' => 2]
+];
+
+$byFoo = function ($v) { return $v->foo; };
+$byBar = function ($v) { return $v->bar; };
+
+$list = \Graze\Sort\schwartzian_sort($list, [$byFoo, $byBar]));
+```
+
+#### `mschwartzian_sort(array $arr, callable $fn, integer $order = Graze\Sort\ASC);`
+#### `mschwartzian_sort(array $arr, callable[] $fns, integer $order = Graze\Sort\ASC);`
+> Memoized Schwartzian sort
+>
+This function applies a Schwartzian Transform sorting algorithm to an array
+of values. Multiple `$fns` can be provided and on sort will be applied in
+order until comparison values no longer match. If a value appears in `$arr`
+more than once, a stored result is used rather than reapplying the `$fn`.
+
+```php
+$list = [2, 1, 3, 2, 3, 2, 2, 1, 3, 1, 2, 3, 1, 1, 1, 3, 3, 2];
+
+$list = \Graze\Sort\mschwartzian_sort($list, function ($v) {
+    return $v;
+});
+```
+```php
+$list = [
+    (object) ['foo' => 1, 'bar' => 3],
+    (object) ['foo' => 3, 'bar' => 2],
+    (object) ['foo' => 2, 'bar' => 1],
+    (object) ['foo' => 2, 'bar' => 2],
+    (object) ['foo' => 3, 'bar' => 3],
+    (object) ['foo' => 1, 'bar' => 1],
+    (object) ['foo' => 2, 'bar' => 3],
+    (object) ['foo' => 3, 'bar' => 1],
+    (object) ['foo' => 1, 'bar' => 2]
+];
+
+$byFoo = function ($v) { return $v->foo; };
+$byBar = function ($v) { return $v->bar; };
+
+$list = \Graze\Sort\mschwartzian_sort($list, [$byFoo, $byBar]));
+```
+
 #### `sort_transform(callable $fn, integer $order = Graze\Sort\ASC);`
 #### `sort_transform(callable[] $fns, integer $order = Graze\Sort\ASC);`
 > Sort transform
@@ -33,7 +172,7 @@ $list = [2, 1, 3, 2, 3, 2, 2, 1, 3, 1, 2, 3, 1, 1, 1, 3, 3, 2];
 
 usort($list, \Graze\Sort\sort_transform(function ($v) {
     return $v;
-});
+}));
 ```
 ```php
 $list = [
@@ -69,7 +208,7 @@ $list = [2, 1, 3, 2, 3, 2, 2, 1, 3, 1, 2, 3, 1, 1, 1, 3, 3, 2];
 usort($list, \Graze\Sort\msort_transform(function ($v) {
     sleep(100);
     return $v;
-});
+}));
 ```
 ```php
 $list = [
@@ -88,40 +227,6 @@ $byFoo = function ($v) { sleep(50); return $v->foo; };
 $byBar = function ($v) { sleep(50); return $v->bar; };
 
 usort($list, \Graze\Sort\msort_transform([$byFoo, $byBar]));
-```
-
-#### `schwartzian_sort(array $arr, callable $fn, integer $order = Graze\Sort\ASC);`
-#### `schwartzian_sort(array $arr, callable[] $fns, integer $order = Graze\Sort\ASC);`
-> Schwartzian sort
->
-This function applies a [Schwartzian Transform][schwartz] sorting algorithm to
-an array of values. Multiple `$fns` can be provided and on sort will be applied
-in order until comparison values no longer match.
-
-```php
-$list = [2, 1, 3, 2, 3, 2, 2, 1, 3, 1, 2, 3, 1, 1, 1, 3, 3, 2];
-
-$list = \Graze\Sort\schwartzian_sort($list, function ($v) {
-    return $v;
-});
-```
-```php
-$list = [
-    (object) ['foo' => 1, 'bar' => 3],
-    (object) ['foo' => 3, 'bar' => 2],
-    (object) ['foo' => 2, 'bar' => 1],
-    (object) ['foo' => 2, 'bar' => 2],
-    (object) ['foo' => 3, 'bar' => 3],
-    (object) ['foo' => 1, 'bar' => 1],
-    (object) ['foo' => 2, 'bar' => 3],
-    (object) ['foo' => 3, 'bar' => 1],
-    (object) ['foo' => 1, 'bar' => 2]
-];
-
-$byFoo = function ($v) { return $v->foo; };
-$byBar = function ($v) { return $v->bar; };
-
-$list = \Graze\Sort\schwartzian_sort($list, [$byFoo, $byBar]));
 ```
 
 #### `memoize(callable $fn);`

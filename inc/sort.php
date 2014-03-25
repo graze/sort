@@ -17,4 +17,7 @@ require $srcDir . 'constants.php';
 require $srcDir . 'memoize.php';
 require $srcDir . 'sort_transform.php';
 require $srcDir . 'msort_transform.php';
+require $srcDir . 'sort.php';
+require $srcDir . 'msort.php';
 require $srcDir . 'schwartzian_sort.php';
+require $srcDir . 'mschwartzian_sort.php';
