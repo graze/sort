@@ -16,6 +16,12 @@
         }
     ],
 
+    "autoload": {
+        "files": [
+            "./inc/sort.php"
+        ]
+    },
+
     "require": {
         "php": ">=5.4"
     },
