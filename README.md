@@ -25,6 +25,47 @@ It can be installed in whichever way you prefer, but we recommend Composer.
 
 ## Documentation
 
+#### `Graze\Sort\sort(callable $fn, integer $order = Graze\Sort\ASC);`
+> Sort
+>
+This function will return a callback to be used as the callable argument in
+any of PHP's built-in `usort` functions.
+
+```php
+$list = [2, 1, 3, 2, 3, 2, 2, 1, 3, 1, 2, 3, 1, 1, 1, 3, 3, 2];
+
+usort($list, \Graze\Sort\sort(function ($v) {
+    return $v;
+});
+```
+
+#### `Graze\Sort\sort_stacked(callable[] $fns, integer $order = Graze\Sort\ASC);`
+> Stacked sort
+>
+This function will return a callback to be used as the callable argument in
+any of PHPs built-in `usort` functions. The callable `$fns` will be applied
+in the order provided until comparing two items returns different results.
+This is useful where sorting based on multiple criteria.
+
+```php
+$list = [
+    (object) ['foo' => 1, 'bar' => 3],
+    (object) ['foo' => 3, 'bar' => 2],
+    (object) ['foo' => 2, 'bar' => 1],
+    (object) ['foo' => 2, 'bar' => 2],
+    (object) ['foo' => 3, 'bar' => 3],
+    (object) ['foo' => 1, 'bar' => 1],
+    (object) ['foo' => 2, 'bar' => 3],
+    (object) ['foo' => 3, 'bar' => 1],
+    (object) ['foo' => 1, 'bar' => 2]
+];
+
+$byFoo = function ($v) { return $v->foo; };
+$byBar = function ($v) { return $v->bar; };
+
+usort($list, \Graze\Sort\sort_stacked([$byFoo, $byBar]));
+```
+
 #### `Graze\Sort\csort(callable $fn, integer $order = Graze\Sort\ASC);`
 > Cached sort
 >
