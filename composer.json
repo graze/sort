@@ -4,7 +4,7 @@
     "keywords": ["array", "list", "memoize", "order", "ordered", "schwartzian", "sort", "sorting", "transform"],
     "homepage": "https://github.com/graze/sort",
 
-    "version": "1.0.0-dev",
+    "version": "1.0.0",
 
     "license": "MIT",
     "type": "library",

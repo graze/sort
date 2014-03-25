@@ -2,20 +2,15 @@
 
 <img src="http://media2.giphy.com/media/fAaAo6SyjVJf2/200.gif" alt="sort" align="right" height=200/>
 
-This library provides a collection of functions used for array sorting.
+**Master build:** [![Master branch build status][travis-master]][travis]
 
+This library provides a collection of functions used for array sorting.
 The intention is to provide powerful yet simple tools to sort arrays while
 remaining interoperable with PHP's build-in usort functions.
 
-It can be installed in whichever way you prefer, but we recommend Composer.
+It can be installed in whichever way you prefer, but we recommend [Composer][packagist].
 ```json
 {
-    "repositories": [
-        {
-            "type": "git",
-            "url": "git@github.com:graze/sort.git"
-        }
-    ],
     "require": {
         "graze/sort": "*"
     }
@@ -178,5 +173,9 @@ You can find a copy of this license at http://www.opensource.org/licenses/mit or
 
 
 <!-- Links -->
+[travis]: https://travis-ci.org/graze/sort
+[travis-master]: https://travis-ci.org/graze/sort.png?branch=master
+[packagist]: https://packagist.org/packages/graze/sort
+[vagrant]: http://vagrantup.com
 [license]: /LICENSE
 [schwartz]: http://en.wikipedia.org/wiki/Schwartzian_transform
