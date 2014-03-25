@@ -16,3 +16,4 @@ require $srcDir . 'lib/Store.php';
 
 require $srcDir . 'constants.php';
 require $srcDir . 'csort.php';
+require $srcDir . 'csort_stacked.php';
