@@ -25,28 +25,21 @@ It can be installed in whichever way you prefer, but we recommend Composer.
 
 ## Documentation
 
-#### `sort_callback(callable $fn, integer $order = Graze\Sort\ASC);`
-> Sort callback
+#### `sort_transform(callable $fn, integer $order = Graze\Sort\ASC);`
+#### `sort_transform(callable[] $fns, integer $order = Graze\Sort\ASC);`
+> Sort transform
 >
-This function will return a callback to be used as the callable argument in
-any of PHP's built-in `usort` functions.
+This function will return a transform callback for use within PHP's `usort`
+functions. Multiple `$fns` can be provided and on sort will be applied in
+order until comparison values no longer match.
 
 ```php
 $list = [2, 1, 3, 2, 3, 2, 2, 1, 3, 1, 2, 3, 1, 1, 1, 3, 3, 2];
 
-usort($list, \Graze\Sort\sort_callback(function ($v) {
+usort($list, \Graze\Sort\sort_transform(function ($v) {
     return $v;
 });
 ```
-
-#### `sort_stacked_callback(callable[] $fns, integer $order = Graze\Sort\ASC);`
-> Stacked sort callback
->
-This function will return a callback to be used as the callable argument in
-any of PHPs built-in `usort` functions. The callable `$fns` will be applied
-in the order provided until comparing two items returns different results.
-This is useful where sorting based on multiple criteria.
-
 ```php
 $list = [
     (object) ['foo' => 1, 'bar' => 3],
@@ -63,38 +56,26 @@ $list = [
 $byFoo = function ($v) { return $v->foo; };
 $byBar = function ($v) { return $v->bar; };
 
-usort($list, \Graze\Sort\sort_stacked_callback([$byFoo, $byBar]));
+usort($list, \Graze\Sort\sort_transform([$byFoo, $byBar]));
 ```
 
-#### `csort_callback(callable $fn, integer $order = Graze\Sort\ASC);`
-> Cached sort callback
+#### `msort_transform(callable $fn, integer $order = Graze\Sort\ASC);`
+#### `msort_transform(callable[] $fns, integer $order = Graze\Sort\ASC);`
+> Memoized sort transform
 >
-This function will return a callback to be used as the callable argument in
-any of PHP's built-in `usort` functions. The `$fn` callable given to this
-function will only every be applied to each item once, and the value will be
-cached and reused further through the sort.
+This function will return a transform callback for use within PHP's `usort`
+functions. Multiple `$fns` can be provided and on sort will be applied in
+order until comparison values no longer match. Values returned by `$fn` will
+be stored for use throughout the sorting algorithm.
 
 ```php
 $list = [2, 1, 3, 2, 3, 2, 2, 1, 3, 1, 2, 3, 1, 1, 1, 3, 3, 2];
 
-// $fn is called a maximum of one time per value and cached for reuse
-usort($list, \Graze\Sort\csort_callback(function ($v) {
-    sleep(10);
+usort($list, \Graze\Sort\msort_transform(function ($v) {
+    sleep(100);
     return $v;
 });
 ```
-
-#### `csort_stacked_callback(callable[] $fns, integer $order = Graze\Sort\ASC);`
-> Stacked cache sort callback
->
-This function will return a callback to be used as the callable argument in
-any of PHP's built-in `usort` functions. Each callable in the `$fns` array
-given to this function will only every be applied to each item once, and the
-value will be cached and reused further through the sort. The callable
-`$fns` will be applied in the order provided until comparing two items
-returns different results. This is useful where sorting based on multiple
-criteria.
-
 ```php
 $list = [
     (object) ['foo' => 1, 'bar' => 3],
@@ -108,11 +89,10 @@ $list = [
     (object) ['foo' => 1, 'bar' => 2]
 ];
 
-// Each $fn is called a maximum of one time per value and cached for reuse
-$byFoo = function ($v) { sleep(10); return $v->foo; };
-$byBar = function ($v) { sleep(90); return $v->bar; };
+$byFoo = function ($v) { sleep(50); return $v->foo; };
+$byBar = function ($v) { sleep(50); return $v->bar; };
 
-usort($list, \Graze\Sort\csort_stacked_callback([$byFoo, $byBar]));
+usort($list, \Graze\Sort\msort_transform([$byFoo, $byBar]));
 ```
 
 

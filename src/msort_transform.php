@@ -13,27 +13,21 @@
 namespace Graze\Sort;
 
 /**
- * Sort callback
+ * Memoized sort transform
  *
- * This function will return a callback to be used as the callable argument in
- * any of PHP's built-in `usort` functions.
+ * This function will return a transform callback for use within PHP's `usort`
+ * functions. Multiple `$fns` can be provided and on sort will be applied in
+ * order until comparison values no longer match. Values returned by `$fn` will
+ * be stored for use throughout the sorting algorithm.
  *
  * @link http://www.php.net/manual/en/function.usort.php
  * @link http://www.php.net/manual/en/function.uasort.php
  * @link http://www.php.net/manual/en/function.uksort.php
  *
- * @param callable $fn
+ * @param callable|callable[] $fn
  * @param integer $order
  * @return Closure
  */
-function sort_callback(callable $fn, $order = ASC) {
-    $resA =  1 * $order;
-    $resB = -1 * $order;
-
-    return function ($itemA, $itemB) use ($fn, $resA, $resB) {
-        $a = call_user_func($fn, $itemA);
-        $b = call_user_func($fn, $itemB);
-
-        return $a === $b ? 0 : $a > $b ? $resA : $resB;
-    };
+function msort_transform($fn, $order = ASC) {
+    return sort_transform(memoize($fn), $order);
 };

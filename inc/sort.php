@@ -15,7 +15,6 @@ $srcDir = dirname(__DIR__) . '/src/';
 require $srcDir . 'lib/Store.php';
 
 require $srcDir . 'constants.php';
-require $srcDir . 'csort_callback.php';
-require $srcDir . 'csort_stacked_callback.php';
-require $srcDir . 'sort_callback.php';
-require $srcDir . 'sort_stacked_callback.php';
+require $srcDir . 'memoize.php';
+require $srcDir . 'sort_transform.php';
+require $srcDir . 'msort_transform.php';
