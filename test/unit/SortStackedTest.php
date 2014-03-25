@@ -1,24 +1,24 @@
 <?php
 namespace Graze\Sort;
 
-class SortStackedTest extends \PHPUnit_Framework_TestCase
+class SortStackedCallbackTest extends \PHPUnit_Framework_TestCase
 {
     public function testAlphaSort()
     {
         $list = ['f', 'h', 'd', 'g', 'j', 'e', 'i', 'c', 'a', 'b'];
 
-        usort($list, sort_stacked([function ($v) {
+        usort($list, sort_stacked_callback([function ($v) {
             return $v;
         }]));
 
         $this->assertEquals(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j'], $list);
     }
 
-    public function testNumerisort_stacked()
+    public function testNumerisort_stacked_callback()
     {
         $list = [5, 7, 3, 6, 9, 4, 8, 2, 0, 1];
 
-        usort($list, sort_stacked([function ($v) {
+        usort($list, sort_stacked_callback([function ($v) {
             return $v;
         }]));
 
@@ -40,7 +40,7 @@ class SortStackedTest extends \PHPUnit_Framework_TestCase
             (object) ['id' => 1]
         ];
 
-        usort($list, sort_stacked([function ($v) {
+        usort($list, sort_stacked_callback([function ($v) {
             return $v->id;
         }]));
 
@@ -51,7 +51,7 @@ class SortStackedTest extends \PHPUnit_Framework_TestCase
     {
         $list = [5, 7, 3, 6, 9, 4, 8, 2, 0, 1];
 
-        usort($list, sort_stacked([function ($v) {
+        usort($list, sort_stacked_callback([function ($v) {
             return $v;
         }], \Graze\Sort\DESC));
 
@@ -62,7 +62,7 @@ class SortStackedTest extends \PHPUnit_Framework_TestCase
     {
         $list = [2, 1, 3, 2, 3, 2, 2, 1, 3, 1, 2, 3, 1, 1, 1, 3, 3, 2];
 
-        usort($list, sort_stacked([function ($v) {
+        usort($list, sort_stacked_callback([function ($v) {
             return $v;
         }]));
 
@@ -85,7 +85,7 @@ class SortStackedTest extends \PHPUnit_Framework_TestCase
         $byFoo = function ($v) { return $v->foo; };
         $byBar = function ($v) { return $v->bar; };
 
-        usort($list, sort_stacked([$byFoo, $byBar]));
+        usort($list, sort_stacked_callback([$byFoo, $byBar]));
 
         $this->assertEquals([$l[5], $l[8], $l[0], $l[2], $l[3], $l[6], $l[7], $l[1], $l[4]], $list);
     }

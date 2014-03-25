@@ -1,24 +1,24 @@
 <?php
 namespace Graze\Sort;
 
-class SortTest extends \PHPUnit_Framework_TestCase
+class SortCallbackTest extends \PHPUnit_Framework_TestCase
 {
     public function testAlphaSort()
     {
         $list = ['f', 'h', 'd', 'g', 'j', 'e', 'i', 'c', 'a', 'b'];
 
-        usort($list, sort(function ($v) {
+        usort($list, sort_callback(function ($v) {
             return $v;
         }));
 
         $this->assertEquals(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j'], $list);
     }
 
-    public function testNumerisort()
+    public function testNumericSort()
     {
         $list = [5, 7, 3, 6, 9, 4, 8, 2, 0, 1];
 
-        usort($list, sort(function ($v) {
+        usort($list, sort_callback(function ($v) {
             return $v;
         }));
 
@@ -40,18 +40,18 @@ class SortTest extends \PHPUnit_Framework_TestCase
             (object) ['id' => 1]
         ];
 
-        usort($list, sort(function ($v) {
+        usort($list, sort_callback(function ($v) {
             return $v->id;
         }));
 
         $this->assertEquals([$l[8], $l[9], $l[7], $l[2], $l[5], $l[0], $l[3], $l[1], $l[6], $l[4]], $list);
     }
 
-    public function testDessort()
+    public function testDescSort()
     {
         $list = [5, 7, 3, 6, 9, 4, 8, 2, 0, 1];
 
-        usort($list, sort(function ($v) {
+        usort($list, sort_callback(function ($v) {
             return $v;
         }, \Graze\Sort\DESC));
 
@@ -62,7 +62,7 @@ class SortTest extends \PHPUnit_Framework_TestCase
     {
         $list = [2, 1, 3, 2, 3, 2, 2, 1, 3, 1, 2, 3, 1, 1, 1, 3, 3, 2];
 
-        usort($list, sort(function ($v) {
+        usort($list, sort_callback(function ($v) {
             return $v;
         }));
 

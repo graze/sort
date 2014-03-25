@@ -25,8 +25,8 @@ It can be installed in whichever way you prefer, but we recommend Composer.
 
 ## Documentation
 
-#### `sort(callable $fn, integer $order = Graze\Sort\ASC);`
-> Sort
+#### `sort_callback(callable $fn, integer $order = Graze\Sort\ASC);`
+> Sort callback
 >
 This function will return a callback to be used as the callable argument in
 any of PHP's built-in `usort` functions.
@@ -34,13 +34,13 @@ any of PHP's built-in `usort` functions.
 ```php
 $list = [2, 1, 3, 2, 3, 2, 2, 1, 3, 1, 2, 3, 1, 1, 1, 3, 3, 2];
 
-usort($list, \Graze\Sort\sort(function ($v) {
+usort($list, \Graze\Sort\sort_callback(function ($v) {
     return $v;
 });
 ```
 
-#### `sort_stacked(callable[] $fns, integer $order = Graze\Sort\ASC);`
-> Stacked sort
+#### `sort_stacked_callback(callable[] $fns, integer $order = Graze\Sort\ASC);`
+> Stacked sort callback
 >
 This function will return a callback to be used as the callable argument in
 any of PHPs built-in `usort` functions. The callable `$fns` will be applied
@@ -63,11 +63,11 @@ $list = [
 $byFoo = function ($v) { return $v->foo; };
 $byBar = function ($v) { return $v->bar; };
 
-usort($list, \Graze\Sort\sort_stacked([$byFoo, $byBar]));
+usort($list, \Graze\Sort\sort_stacked_callback([$byFoo, $byBar]));
 ```
 
-#### `csort(callable $fn, integer $order = Graze\Sort\ASC);`
-> Cached sort
+#### `csort_callback(callable $fn, integer $order = Graze\Sort\ASC);`
+> Cached sort callback
 >
 This function will return a callback to be used as the callable argument in
 any of PHP's built-in `usort` functions. The `$fn` callable given to this
@@ -78,14 +78,14 @@ cached and reused further through the sort.
 $list = [2, 1, 3, 2, 3, 2, 2, 1, 3, 1, 2, 3, 1, 1, 1, 3, 3, 2];
 
 // $fn is called a maximum of one time per value and cached for reuse
-usort($list, \Graze\Sort\csort(function ($v) {
+usort($list, \Graze\Sort\csort_callback(function ($v) {
     sleep(10);
     return $v;
 });
 ```
 
-#### `csort_stacked(callable[] $fns, integer $order = Graze\Sort\ASC);`
-> Stacked cache sort
+#### `csort_stacked_callback(callable[] $fns, integer $order = Graze\Sort\ASC);`
+> Stacked cache sort callback
 >
 This function will return a callback to be used as the callable argument in
 any of PHP's built-in `usort` functions. Each callable in the `$fns` array
@@ -112,7 +112,7 @@ $list = [
 $byFoo = function ($v) { sleep(10); return $v->foo; };
 $byBar = function ($v) { sleep(90); return $v->bar; };
 
-usort($list, \Graze\Sort\csort_stacked([$byFoo, $byBar]));
+usort($list, \Graze\Sort\csort_stacked_callback([$byFoo, $byBar]));
 ```
 
 

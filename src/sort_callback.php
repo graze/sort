@@ -13,7 +13,7 @@
 namespace Graze\Sort;
 
 /**
- * Sort
+ * Sort callback
  *
  * This function will return a callback to be used as the callable argument in
  * any of PHP's built-in `usort` functions.
@@ -26,7 +26,7 @@ namespace Graze\Sort;
  * @param integer $order
  * @return Closure
  */
-function sort(callable $fn, $order = ASC) {
+function sort_callback(callable $fn, $order = ASC) {
     $resA =  1 * $order;
     $resB = -1 * $order;
 

@@ -1,13 +1,13 @@
 <?php
 namespace Graze\Sort;
 
-class CSortTest extends \PHPUnit_Framework_TestCase
+class CSortCallbackTest extends \PHPUnit_Framework_TestCase
 {
     public function testAlphaSort()
     {
         $list = ['f', 'h', 'd', 'g', 'j', 'e', 'i', 'c', 'a', 'b'];
 
-        usort($list, csort(function ($v) {
+        usort($list, csort_callback(function ($v) {
             return $v;
         }));
 
@@ -18,7 +18,7 @@ class CSortTest extends \PHPUnit_Framework_TestCase
     {
         $list = [5, 7, 3, 6, 9, 4, 8, 2, 0, 1];
 
-        usort($list, csort(function ($v) {
+        usort($list, csort_callback(function ($v) {
             return $v;
         }));
 
@@ -40,7 +40,7 @@ class CSortTest extends \PHPUnit_Framework_TestCase
             (object) ['id' => 1]
         ];
 
-        usort($list, csort(function ($v) {
+        usort($list, csort_callback(function ($v) {
             return $v->id;
         }));
 
@@ -51,7 +51,7 @@ class CSortTest extends \PHPUnit_Framework_TestCase
     {
         $list = [5, 7, 3, 6, 9, 4, 8, 2, 0, 1];
 
-        usort($list, csort(function ($v) {
+        usort($list, csort_callback(function ($v) {
             return $v;
         }, \Graze\Sort\DESC));
 
@@ -62,7 +62,7 @@ class CSortTest extends \PHPUnit_Framework_TestCase
     {
         $list = [2, 1, 3, 2, 3, 2, 2, 1, 3, 1, 2, 3, 1, 1, 1, 3, 3, 2];
 
-        usort($list, csort(function ($v) {
+        usort($list, csort_callback(function ($v) {
             return $v;
         }));
 
@@ -74,7 +74,7 @@ class CSortTest extends \PHPUnit_Framework_TestCase
         $calls = [1 => 0, 2 => 0, 3 => 0];
         $list = [2, 1, 3, 2, 3, 2, 2, 1, 3, 1, 2, 3, 1, 1, 1, 3, 3, 2];
 
-        usort($list, csort(function ($v) use (&$calls) {
+        usort($list, csort_callback(function ($v) use (&$calls) {
             $calls[$v] += 1;
             return $v;
         }));

@@ -13,7 +13,7 @@
 namespace Graze\Sort;
 
 /**
- * Stacked cache sort
+ * Stacked cache sort callback
  *
  * This function will return a callback to be used as the callable argument in
  * any of PHPs built-in `usort` functions. Each callable in the `$fns` array
@@ -31,7 +31,7 @@ namespace Graze\Sort;
  * @param integer $order
  * @return Closure
  */
-function csort_stacked(array $fns, $order = ASC) {
+function csort_stacked_callback(array $fns, $order = ASC) {
     $stores = [];
     $resA =  1 * $order;
     $resB = -1 * $order;

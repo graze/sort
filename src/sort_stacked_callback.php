@@ -13,30 +13,35 @@
 namespace Graze\Sort;
 
 /**
- * Cached sort
+ * Stacked sort callback
  *
  * This function will return a callback to be used as the callable argument in
- * any of PHP's built-in `usort` functions. The `$fn` callable given to this
- * function will only every be applied to each item once, and the value will be
- * cached and reused further through the sort.
+ * any of PHPs built-in `usort` functions. The callable `$fns` will be applied
+ * in the order provided until comparing two items returns different results.
+ * This is useful where sorting based on multiple criteria.
  *
  * @link http://www.php.net/manual/en/function.usort.php
  * @link http://www.php.net/manual/en/function.uasort.php
  * @link http://www.php.net/manual/en/function.uksort.php
  *
- * @param callable $fn
+ * @param callable[] $fns
  * @param integer $order
  * @return Closure
  */
-function csort(callable $fn, $order = ASC) {
-    $store = new Store($fn);
-    $resA  =  1 * $order;
-    $resB  = -1 * $order;
+function sort_stacked_callback(array $fns, $order = ASC) {
+    $resA =  1 * $order;
+    $resB = -1 * $order;
 
-    return function ($itemA, $itemB) use ($store, $resA, $resB) {
-        $a = $store->getValue($itemA);
-        $b = $store->getValue($itemB);
+    return function ($itemA, $itemB) use ($fns, $resA, $resB) {
+        foreach ($fns as $fn) {
+            $a = call_user_func($fn, $itemA);
+            $b = call_user_func($fn, $itemB);
 
-        return $a === $b ? 0 : $a > $b ? $resA : $resB;
+            if ($a !== $b) {
+                return $a > $b ? $resA : $resB;
+            }
+        }
+
+        return 0;
     };
 };
