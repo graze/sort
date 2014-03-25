@@ -16,10 +16,10 @@ namespace Graze\Sort;
  * Stacked cache sort
  *
  * This function will return a callback to be used as the callable argument in
- * any of PHPs built-in usort functions. Each callable in the $sorts array
+ * any of PHPs built-in `usort` functions. Each callable in the `$fns` array
  * given to this function will only every be applied to each item once, and the
  * value will be cached and reused further through the sort. The callable
- * $sorts will be applied in the order provided until comparing two items
+ * `$fns` will be applied in the order provided until comparing two items
  * returns different results. This is useful where sorting based on multiple
  * criteria.
  *
@@ -27,17 +27,17 @@ namespace Graze\Sort;
  * @link http://www.php.net/manual/en/function.uasort.php
  * @link http://www.php.net/manual/en/function.uksort.php
  *
- * @param callable[] $sorts
+ * @param callable[] $fns
  * @param integer $order
  * @return Closure
  */
-function csort_stacked(array $sorts, $order = ASC) {
+function csort_stacked(array $fns, $order = ASC) {
     $stores = [];
     $resA =  1 * $order;
     $resB = -1 * $order;
 
-    foreach ($sorts as $sort) {
-        $stores[] = new Store($sort);
+    foreach ($fns as $fn) {
+        $stores[] = new Store($fn);
     }
 
     return function ($itemA, $itemB) use ($stores, $resA, $resB) {

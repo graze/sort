@@ -16,7 +16,7 @@ namespace Graze\Sort;
  * Cached sort
  *
  * This function will return a callback to be used as the callable argument in
- * any of PHP's built-in usort functions. The $sort callable given to this
+ * any of PHP's built-in `usort` functions. The `$fn` callable given to this
  * function will only every be applied to each item once, and the value will be
  * cached and reused further through the sort.
  *
@@ -24,12 +24,12 @@ namespace Graze\Sort;
  * @link http://www.php.net/manual/en/function.uasort.php
  * @link http://www.php.net/manual/en/function.uksort.php
  *
- * @param callable $sort
+ * @param callable $fn
  * @param integer $order
  * @return Closure
  */
-function csort(callable $sort, $order = ASC) {
-    $store = new Store($sort);
+function csort(callable $fn, $order = ASC) {
+    $store = new Store($fn);
     $resA  =  1 * $order;
     $resB  = -1 * $order;
 
