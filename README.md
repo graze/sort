@@ -95,6 +95,48 @@ $byBar = function ($v) { sleep(50); return $v->bar; };
 usort($list, \Graze\Sort\msort_transform([$byFoo, $byBar]));
 ```
 
+#### `memoize(callable $fn);`
+#### `memoize(callable[] $fns);`
+> Memoize
+>
+This function stores values returned by applying `$fn` or `$fns` to a value.
+
+```php
+$list = [2, 1, 3, 2, 3, 2, 2, 1, 3, 1, 2, 3, 1, 1, 1, 3, 3, 2];
+$fn = \Graze\Sort\memoize(function ($v) {
+    sleep(100);
+    return $v;
+});
+
+$out = [];
+foreach($list as $item) {
+    $out[] = $fn($item);
+}
+```
+```php
+$list = [
+    (object) ['foo' => 1, 'bar' => 3],
+    (object) ['foo' => 3, 'bar' => 2],
+    (object) ['foo' => 2, 'bar' => 1],
+    (object) ['foo' => 2, 'bar' => 2],
+    (object) ['foo' => 3, 'bar' => 3],
+    (object) ['foo' => 1, 'bar' => 1],
+    (object) ['foo' => 2, 'bar' => 3],
+    (object) ['foo' => 3, 'bar' => 1],
+    (object) ['foo' => 1, 'bar' => 2]
+];
+
+$getFoo = function ($v) { sleep(50); return $v->foo; };
+$getBar = function ($v) { sleep(50); return $v->bar; };
+$fns = \Graze\Sort\memoize([$getFoo, $getBar]);
+
+foreach ($list as $item) {
+    foreach ($fns as $fn) {
+        $out[] = $fn($item);
+    }
+}
+```
+
 
 ### License ###
 The content of this library is released under the **MIT License** by **Nature Delivered Ltd**.<br/>

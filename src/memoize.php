@@ -21,7 +21,6 @@ namespace Graze\Sort;
  * @return Closure|Closure[]
  */
 function memoize($fn) {
-    //if (!is_array($fn) || count($fn) === count($fn, COUNT_RECURSIVE)) {
     if (is_callable($fn)) {
         $fn = [$fn];
     }
