@@ -1,7 +1,7 @@
 {
     "name": "graze/sort",
-    "description": "A collection of array sorting functions",
-    "keywords": ["array", "list", "order", "ordered", "sort", "sorting"],
+    "description": "A collection of array sorting transforms and functions",
+    "keywords": ["array", "list", "memoize", "order", "ordered", "schwartzian", "sort", "sorting", "transform"],
     "homepage": "https://github.com/graze/sort",
 
     "version": "1.0.0-dev",
