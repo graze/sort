@@ -13,8 +13,8 @@
 $srcDir = dirname(__DIR__) . '/src/';
 
 require $srcDir . 'lib/Store.php';
-
 require $srcDir . 'constants.php';
 require $srcDir . 'memoize.php';
 require $srcDir . 'sort_transform.php';
 require $srcDir . 'msort_transform.php';
+require $srcDir . 'schwartzian_sort.php';

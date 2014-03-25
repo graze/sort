@@ -95,6 +95,40 @@ $byBar = function ($v) { sleep(50); return $v->bar; };
 usort($list, \Graze\Sort\msort_transform([$byFoo, $byBar]));
 ```
 
+#### `schwartzian_sort(array $arr, callable $fn, integer $order = Graze\Sort\ASC);`
+#### `schwartzian_sort(array $arr, callable[] $fns, integer $order = Graze\Sort\ASC);`
+> Schwartzian sort
+>
+This function applies a [Schwartzian Transform][schwartz] sorting algorithm to
+an array of values. Multiple `$fns` can be provided and on sort will be applied
+in order until comparison values no longer match.
+
+```php
+$list = [2, 1, 3, 2, 3, 2, 2, 1, 3, 1, 2, 3, 1, 1, 1, 3, 3, 2];
+
+$list = \Graze\Sort\schwartzian_sort($list, function ($v) {
+    return $v;
+});
+```
+```php
+$list = [
+    (object) ['foo' => 1, 'bar' => 3],
+    (object) ['foo' => 3, 'bar' => 2],
+    (object) ['foo' => 2, 'bar' => 1],
+    (object) ['foo' => 2, 'bar' => 2],
+    (object) ['foo' => 3, 'bar' => 3],
+    (object) ['foo' => 1, 'bar' => 1],
+    (object) ['foo' => 2, 'bar' => 3],
+    (object) ['foo' => 3, 'bar' => 1],
+    (object) ['foo' => 1, 'bar' => 2]
+];
+
+$byFoo = function ($v) { return $v->foo; };
+$byBar = function ($v) { return $v->bar; };
+
+$list = \Graze\Sort\schwartzian_sort($list, [$byFoo, $byBar]));
+```
+
 #### `memoize(callable $fn);`
 #### `memoize(callable[] $fns);`
 > Memoize
@@ -145,3 +179,4 @@ You can find a copy of this license at http://www.opensource.org/licenses/mit or
 
 <!-- Links -->
 [license]: /LICENSE
+[schwartz]: http://en.wikipedia.org/wiki/Schwartzian_transform
