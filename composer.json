@@ -1,0 +1,25 @@
+{
+    "name": "graze/sort",
+    "description": "A collection of array sorting functions",
+    "keywords": ["array", "list", "order", "ordered", "sort", "sorting"],
+    "homepage": "https://github.com/graze/sort",
+
+    "version": "1.0.0-dev",
+
+    "license": "MIT",
+    "type": "library",
+
+    "authors": [
+        {
+            "name": "Graze tech team",
+            "homepage": "https://github.com/graze/sort/graphs/contributors"
+        }
+    ],
+
+    "require": {
+        "php": ">=5.4"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~4.0.11"
+    }
+}
