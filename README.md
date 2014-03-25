@@ -128,7 +128,7 @@ $list = \Graze\Sort\schwartzian_sort($list, [$byFoo, $byBar]));
 #### `mschwartzian_sort(array $arr, callable[] $fns, integer $order = Graze\Sort\ASC);`
 > Memoized Schwartzian sort
 >
-This function applies a Schwartzian Transform sorting algorithm to an array
+This function applies a [Schwartzian Transform][schwartz] sorting algorithm to an array
 of values. Multiple `$fns` can be provided and on sort will be applied in
 order until comparison values no longer match. If a value appears in `$arr`
 more than once, a stored result is used rather than reapplying the `$fn`.
