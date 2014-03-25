@@ -25,7 +25,7 @@ It can be installed in whichever way you prefer, but we recommend Composer.
 
 ## Documentation
 
-#### `Graze\Sort\sort(callable $fn, integer $order = Graze\Sort\ASC);`
+#### `sort(callable $fn, integer $order = Graze\Sort\ASC);`
 > Sort
 >
 This function will return a callback to be used as the callable argument in
@@ -39,7 +39,7 @@ usort($list, \Graze\Sort\sort(function ($v) {
 });
 ```
 
-#### `Graze\Sort\sort_stacked(callable[] $fns, integer $order = Graze\Sort\ASC);`
+#### `sort_stacked(callable[] $fns, integer $order = Graze\Sort\ASC);`
 > Stacked sort
 >
 This function will return a callback to be used as the callable argument in
@@ -66,7 +66,7 @@ $byBar = function ($v) { return $v->bar; };
 usort($list, \Graze\Sort\sort_stacked([$byFoo, $byBar]));
 ```
 
-#### `Graze\Sort\csort(callable $fn, integer $order = Graze\Sort\ASC);`
+#### `csort(callable $fn, integer $order = Graze\Sort\ASC);`
 > Cached sort
 >
 This function will return a callback to be used as the callable argument in
@@ -84,7 +84,7 @@ usort($list, \Graze\Sort\csort(function ($v) {
 });
 ```
 
-#### `Graze\Sort\csort_stacked(callable[] $fns, integer $order = Graze\Sort\ASC);`
+#### `csort_stacked(callable[] $fns, integer $order = Graze\Sort\ASC);`
 > Stacked cache sort
 >
 This function will return a callback to be used as the callable argument in
