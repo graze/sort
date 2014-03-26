@@ -51,7 +51,7 @@ $list = [
 $byFoo = function ($v) { return $v->foo; };
 $byBar = function ($v) { return $v->bar; };
 
-$list = \Graze\Sort\sort_transform([$byFoo, $byBar]);
+$list = \Graze\Sort\sort([$byFoo, $byBar]);
 ```
 
 #### `msort(array $arr, callable $fn, integer $order = Graze\Sort\ASC);`
