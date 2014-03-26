@@ -12,6 +12,8 @@
  */
 namespace Graze\Sort;
 
+use Closure;
+
 /**
  * Sort transform
  *
@@ -37,8 +39,13 @@ function sort_transform($fn, $order = ASC) {
 
     return function ($itemA, $itemB) use ($fn, $resA, $resB) {
         foreach ($fn as $_fn) {
-            $a = call_user_func($_fn, $itemA);
-            $b = call_user_func($_fn, $itemB);
+            if ($_fn instanceof Closure) {
+                $a = $_fn($itemA);
+                $b = $_fn($itemB);
+            } else {
+                $a = call_user_func($_fn, $itemA);
+                $b = call_user_func($_fn, $itemB);
+            }
 
             if ($a !== $b) {
                 return $a > $b ? $resA : $resB;

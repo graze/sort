@@ -12,6 +12,8 @@
  */
 namespace Graze\Sort;
 
+use Closure;
+
 /**
  * Swartzian sort
  *
@@ -34,7 +36,7 @@ function schwartzian_sort(array $arr, $fn, $order = ASC) {
     array_walk($arr, function (&$v, $k) use ($fn) {
         $out = [];
         foreach ($fn as $_fn) {
-            $out[] = call_user_func($_fn, $v);
+            $out[] = $_fn instanceof Closure ? $_fn($v) : call_user_func($_fn, $v);
         }
 
         $out[] = $k;
