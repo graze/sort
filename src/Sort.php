@@ -63,7 +63,7 @@ class Sort
         $resB = -1 * $order;
 
         if (is_callable($fn)) {
-            $fn = [$fn];
+            $fn = array($fn);
         }
 
         return function ($itemA, $itemB) use ($fn, $resA, $resB) {
@@ -102,11 +102,11 @@ class Sort
     public static function schwartzian(array $arr, $fn, $order = self::ASC)
     {
         if (is_callable($fn)) {
-            $fn = [$fn];
+            $fn = array($fn);
         }
 
         array_walk($arr, function (&$v, $k) use ($fn) {
-            $out = [];
+            $out = array();
             foreach ($fn as $_fn) {
                 $out[] = $_fn instanceof Closure ? $_fn($v) : call_user_func($_fn, $v);
             }
