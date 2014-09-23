@@ -45,7 +45,7 @@ $sorted = \Graze\Sort\schwartzian($unsorted, [$foo, $bar]);
 
 // Using comparison sorting with usort
 $sorted = $unsorted;
-usort($sorted, \Graze\Sort\comparison($unsorted, [$foo, $bar]));
+usort($sorted, \Graze\Sort\comparison_fn($unsorted, [$foo, $bar]));
 ```
 
 ## Contributing
