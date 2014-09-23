@@ -36,8 +36,7 @@ class Sort
      */
     public static function comparison(array $arr, $fn, $order = self::ASC)
     {
-        // @link https://bugs.php.net/bug.php?id=50688
-        @usort($arr, self::comparisonFn($fn, $order));
+        usort($arr, self::comparisonFn($fn, $order));
         return $arr;
     }
 
