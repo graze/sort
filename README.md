@@ -1,4 +1,4 @@
-# Graze/Sort #
+# Sort
 
 <img src="http://media2.giphy.com/media/fAaAo6SyjVJf2/200.gif" alt="sort" align="right" height=200/>
 
