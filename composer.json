@@ -1,31 +1,39 @@
 {
     "name": "graze/sort",
     "description": "A collection of array sorting transforms and functions",
-    "keywords": ["array", "list", "memoize", "order", "ordered", "schwartzian", "sort", "sorting", "transform"],
     "homepage": "https://github.com/graze/sort",
-
-    "version": "1.0.1",
-
     "license": "MIT",
     "type": "library",
-
+    "keywords": [
+        "array",
+        "collection",
+        "list",
+        "order",
+        "ordered",
+        "schwartzian",
+        "sort",
+        "sorting",
+        "transform"
+    ],
     "authors": [
         {
             "name": "Graze tech team",
             "homepage": "https://github.com/graze/sort/graphs/contributors"
         }
     ],
-
     "autoload": {
         "files": [
-            "./inc/sort.php"
-        ]
+            "src/fn.php"
+        ],
+        "psr-4": {
+            "Graze\\": "src"
+        }
     },
-
     "require": {
-        "php": ">=5.4"
+        "php": ">=5.3"
     },
     "require-dev": {
-        "phpunit/phpunit": "~4.0.11"
+        "adlawson/timezone": "~1.0",
+        "phpunit/phpunit": "~4.0"
     }
 }

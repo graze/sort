@@ -1,13 +1,15 @@
 <?php
 namespace Graze\Sort;
 
-class MSchwartzianSortTest extends \PHPUnit_Framework_TestCase
+use PHPUnit_Framework_TestCase as TestCase;
+
+class SortTest extends TestCase
 {
     public function testAlphaSort()
     {
         $list = ['f', 'h', 'd', 'g', 'j', 'e', 'i', 'c', 'a', 'b'];
 
-        $list = mschwartzian_sort($list, function ($v) {
+        $list = comparison($list, function ($v) {
             return $v;
         });
 
@@ -18,7 +20,7 @@ class MSchwartzianSortTest extends \PHPUnit_Framework_TestCase
     {
         $list = ['f', 'h', 'd', 'g', 'j', 'e', 'i', 'c', 'a', 'b'];
 
-        $list = mschwartzian_sort($list, [function ($v) {
+        $list = comparison($list, [function ($v) {
             return $v;
         }]);
 
@@ -29,7 +31,7 @@ class MSchwartzianSortTest extends \PHPUnit_Framework_TestCase
     {
         $list = [5, 7, 3, 6, 9, 4, 8, 2, 0, 1];
 
-        $list = mschwartzian_sort($list, function ($v) {
+        $list = comparison($list, function ($v) {
             return $v;
         });
 
@@ -40,7 +42,7 @@ class MSchwartzianSortTest extends \PHPUnit_Framework_TestCase
     {
         $list = [5, 7, 3, 6, 9, 4, 8, 2, 0, 1];
 
-        $list = mschwartzian_sort($list, [function ($v) {
+        $list = comparison($list, [function ($v) {
             return $v;
         }]);
 
@@ -62,7 +64,7 @@ class MSchwartzianSortTest extends \PHPUnit_Framework_TestCase
             (object) ['id' => 1]
         ];
 
-        $list = mschwartzian_sort($list, function ($v) {
+        $list = comparison($list, function ($v) {
             return $v->id;
         });
 
@@ -84,7 +86,7 @@ class MSchwartzianSortTest extends \PHPUnit_Framework_TestCase
             (object) ['id' => 1]
         ];
 
-        $list = mschwartzian_sort($list, [function ($v) {
+        $list = comparison($list, [function ($v) {
             return $v->id;
         }]);
 
@@ -95,7 +97,7 @@ class MSchwartzianSortTest extends \PHPUnit_Framework_TestCase
     {
         $list = [5, 7, 3, 6, 9, 4, 8, 2, 0, 1];
 
-        $list = mschwartzian_sort($list, function ($v) {
+        $list = comparison($list, function ($v) {
             return $v;
         }, \Graze\Sort\DESC);
 
@@ -106,7 +108,7 @@ class MSchwartzianSortTest extends \PHPUnit_Framework_TestCase
     {
         $list = [2, 1, 3, 2, 3, 2, 2, 1, 3, 1, 2, 3, 1, 1, 1, 3, 3, 2];
 
-        $list = mschwartzian_sort($list, function ($v) {
+        $list = comparison($list, function ($v) {
             return $v;
         });
 
@@ -117,7 +119,7 @@ class MSchwartzianSortTest extends \PHPUnit_Framework_TestCase
     {
         $list = [2, 1, 3, 2, 3, 2, 2, 1, 3, 1, 2, 3, 1, 1, 1, 3, 3, 2];
 
-        $list = mschwartzian_sort($list, [function ($v) {
+        $list = comparison($list, [function ($v) {
             return $v;
         }]);
 
@@ -141,44 +143,8 @@ class MSchwartzianSortTest extends \PHPUnit_Framework_TestCase
         $byFoo = function ($v) { return $v->foo; };
         $byBar = function ($v) { return $v->bar; };
 
-        $list = mschwartzian_sort($list, [$byFoo, $byBar]);
+        $list = comparison($list, [$byFoo, $byBar]);
 
         $this->assertEquals([$l[5], $l[8], $l[0], $l[2], $l[3], $l[6], $l[7], $l[1], $l[4]], $list);
-    }
-
-    public function testCallbackIsCalledOnceForEachValue()
-    {
-        $calls = [1 => 0, 2 => 0, 3 => 0];
-        $list  = [2, 1, 3, 2, 3, 2, 2, 1, 3, 1, 2, 3, 1, 1, 1, 3, 3, 2];
-
-        $list = mschwartzian_sort($list, function ($v) use (&$calls) {
-            $calls[$v] += 1;
-            return $v;
-        });
-
-        $this->assertEquals([1 => 1, 2 => 1, 3 => 1], $calls);
-    }
-
-    public function testCallbacksAreCalledOnceForEachValue()
-    {
-        $calls = ['foo' => [1 => 0, 2 => 0, 3 => 0], 'bar' => [1 => 0, 2 => 0, 3 => 0]];
-        $list = [
-            (object) ['foo' => 1, 'bar' => 3],
-            (object) ['foo' => 3, 'bar' => 2],
-            (object) ['foo' => 2, 'bar' => 1],
-            (object) ['foo' => 2, 'bar' => 2],
-            (object) ['foo' => 3, 'bar' => 3],
-            (object) ['foo' => 1, 'bar' => 1],
-            (object) ['foo' => 2, 'bar' => 3],
-            (object) ['foo' => 3, 'bar' => 1],
-            (object) ['foo' => 1, 'bar' => 2]
-        ];
-
-        $byFoo = function ($v) use (&$calls) { $calls['foo'][$v->foo] += 1; return $v->foo; };
-        $byBar = function ($v) use (&$calls) { $calls['bar'][$v->bar] += 1; return $v->bar; };
-
-        $list = mschwartzian_sort($list, [$byFoo, $byBar]);
-
-        $this->assertEquals(['foo' => [1 => 3, 2 => 3, 3 => 3], 'bar' => [1 => 3, 2 => 3, 3 => 3]], $calls);
     }
 }

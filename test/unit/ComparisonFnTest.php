@@ -1,13 +1,15 @@
 <?php
 namespace Graze\Sort;
 
-class SortTransformTest extends \PHPUnit_Framework_TestCase
+use PHPUnit_Framework_TestCase as TestCase;
+
+class SortTransformTest extends TestCase
 {
     public function testAlphaSort()
     {
         $list = ['f', 'h', 'd', 'g', 'j', 'e', 'i', 'c', 'a', 'b'];
 
-        usort($list, sort_transform(function ($v) {
+        usort($list, comparison_fn(function ($v) {
             return $v;
         }));
 
@@ -18,7 +20,7 @@ class SortTransformTest extends \PHPUnit_Framework_TestCase
     {
         $list = ['f', 'h', 'd', 'g', 'j', 'e', 'i', 'c', 'a', 'b'];
 
-        usort($list, sort_transform([function ($v) {
+        usort($list, comparison_fn([function ($v) {
             return $v;
         }]));
 
@@ -29,7 +31,7 @@ class SortTransformTest extends \PHPUnit_Framework_TestCase
     {
         $list = [5, 7, 3, 6, 9, 4, 8, 2, 0, 1];
 
-        usort($list, sort_transform(function ($v) {
+        usort($list, comparison_fn(function ($v) {
             return $v;
         }));
 
@@ -40,7 +42,7 @@ class SortTransformTest extends \PHPUnit_Framework_TestCase
     {
         $list = [5, 7, 3, 6, 9, 4, 8, 2, 0, 1];
 
-        usort($list, sort_transform([function ($v) {
+        usort($list, comparison_fn([function ($v) {
             return $v;
         }]));
 
@@ -62,7 +64,7 @@ class SortTransformTest extends \PHPUnit_Framework_TestCase
             (object) ['id' => 1]
         ];
 
-        usort($list, sort_transform(function ($v) {
+        usort($list, comparison_fn(function ($v) {
             return $v->id;
         }));
 
@@ -84,7 +86,7 @@ class SortTransformTest extends \PHPUnit_Framework_TestCase
             (object) ['id' => 1]
         ];
 
-        usort($list, sort_transform([function ($v) {
+        usort($list, comparison_fn([function ($v) {
             return $v->id;
         }]));
 
@@ -95,7 +97,7 @@ class SortTransformTest extends \PHPUnit_Framework_TestCase
     {
         $list = [5, 7, 3, 6, 9, 4, 8, 2, 0, 1];
 
-        usort($list, sort_transform(function ($v) {
+        usort($list, comparison_fn(function ($v) {
             return $v;
         }, \Graze\Sort\DESC));
 
@@ -106,7 +108,7 @@ class SortTransformTest extends \PHPUnit_Framework_TestCase
     {
         $list = [2, 1, 3, 2, 3, 2, 2, 1, 3, 1, 2, 3, 1, 1, 1, 3, 3, 2];
 
-        usort($list, sort_transform(function ($v) {
+        usort($list, comparison_fn(function ($v) {
             return $v;
         }));
 
@@ -117,7 +119,7 @@ class SortTransformTest extends \PHPUnit_Framework_TestCase
     {
         $list = [2, 1, 3, 2, 3, 2, 2, 1, 3, 1, 2, 3, 1, 1, 1, 3, 3, 2];
 
-        usort($list, sort_transform([function ($v) {
+        usort($list, comparison_fn([function ($v) {
             return $v;
         }]));
 
@@ -141,7 +143,7 @@ class SortTransformTest extends \PHPUnit_Framework_TestCase
         $byFoo = function ($v) { return $v->foo; };
         $byBar = function ($v) { return $v->bar; };
 
-        usort($list, sort_transform([$byFoo, $byBar]));
+        usort($list, comparison_fn([$byFoo, $byBar]));
 
         $this->assertEquals([$l[5], $l[8], $l[0], $l[2], $l[3], $l[6], $l[7], $l[1], $l[4]], $list);
     }
