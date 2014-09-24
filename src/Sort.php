@@ -25,7 +25,7 @@ class Sort
     /**
      * Comparison sort
      *
-     * This function appliesa Comparison sorting function to an array of values.
+     * This function applies a Comparison sorting function to an array of values.
      * Multiple `$fns` can be provided and on sort will be applied in order until
      * comparison values no longer match.
      *
@@ -60,10 +60,7 @@ class Sort
     {
         $resA =  1 * $order;
         $resB = -1 * $order;
-
-        if (is_callable($fn)) {
-            $fn = array($fn);
-        }
+        $fn = self::getCallableList($fn);
 
         return function ($itemA, $itemB) use ($fn, $resA, $resB) {
             foreach ($fn as $_fn) {
@@ -100,9 +97,7 @@ class Sort
      */
     public static function schwartzian(array $arr, $fn, $order = self::ASC)
     {
-        if (is_callable($fn)) {
-            $fn = array($fn);
-        }
+        $fn = self::getCallableList($fn);
 
         array_walk($arr, function (&$v, $k) use ($fn) {
             $out = array();
@@ -124,5 +119,18 @@ class Sort
         return array_values(array_map(function ($v) {
             return array_pop($v);
         }, $arr));
+    }
+
+    /**
+     * @param callable|callable[] $fn
+     * @return callable[]
+     */
+    protected static function getCallableList($fn)
+    {
+        if (is_callable($fn)) {
+            return array($fn);
+        }
+
+        return $fn;
     }
 }
