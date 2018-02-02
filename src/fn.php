@@ -23,31 +23,34 @@ const ASC  = \Graze\Sort::ASC;
 /**
  * @see Graze\Sort::comparison
  * @param array $arr
- * @param callable|callable[] $fns
- * @param integer $order
+ * @param callable|callable[] $fn
+ * @param int $order
  * @return array
  */
-function comparison(array $arr, $fn, $order = ASC) {
+function comparison(array $arr, $fn, $order = ASC)
+{
     return \Graze\Sort::comparison($arr, $fn, $order);
 };
 
 /**
  * @see Graze\Sort::comparisonFn
- * @param callable|callable[] $fns
- * @param integer $order
+ * @param callable|callable[] $fn
+ * @param int $order
  * @return Closure
  */
-function comparison_fn($fn, $order = ASC) {
+function comparison_fn($fn, $order = ASC)
+{
     return \Graze\Sort::comparisonFn($fn, $order);
 };
 
 /**
  * @see Graze\Sort::schwartzian
  * @param array $arr
- * @param callable|callable[] $fns
- * @param integer $order
+ * @param callable|callable[] $fn
+ * @param int $order
  * @return array
  */
-function schwartzian(array $arr, $fn, $order = ASC) {
+function schwartzian(array $arr, $fn, $order = ASC)
+{
     return \Graze\Sort::schwartzian($arr, $fn, $order);
 };

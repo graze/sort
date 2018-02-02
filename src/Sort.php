@@ -30,8 +30,8 @@ class Sort
      * comparison values no longer match.
      *
      * @param array $arr
-     * @param callable|callable[] $fns
-     * @param integer $order
+     * @param callable|callable[] $fn
+     * @param int $order
      * @return array
      */
     public static function comparison(array $arr, $fn, $order = self::ASC)
@@ -52,8 +52,8 @@ class Sort
      * @link http://www.php.net/manual/en/function.uasort.php
      * @link http://www.php.net/manual/en/function.uksort.php
      *
-     * @param callable|callable[] $fns
-     * @param integer $order
+     * @param callable|callable[] $fn
+     * @param int $order
      * @return Closure
      */
     public static function comparisonFn($fn, $order = self::ASC)
@@ -91,8 +91,8 @@ class Sort
      * @link http://en.wikipedia.org/wiki/Schwartzian_transform
      *
      * @param array $arr
-     * @param callable|callable[] $fns
-     * @param integer $order
+     * @param callable|callable[] $fn
+     * @param int $order
      * @return array
      */
     public static function schwartzian(array $arr, $fn, $order = self::ASC)
@@ -100,7 +100,7 @@ class Sort
         $fn = self::getCallableList($fn);
 
         array_walk($arr, function (&$v, $k) use ($fn) {
-            $out = array();
+            $out = [];
             foreach ($fn as $_fn) {
                 $out[] = $_fn instanceof Closure ? $_fn($v) : call_user_func($_fn, $v);
             }
@@ -128,7 +128,7 @@ class Sort
     protected static function getCallableList($fn)
     {
         if (is_callable($fn)) {
-            return array($fn);
+            return [$fn];
         }
 
         return $fn;
