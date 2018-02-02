@@ -56,16 +56,6 @@ $ composer install
 $ vendor/bin/phpunit
 ```
 
-If you have [Vagrant][vagrant] installed, you can build our dev environment to
-assist development. The repository will be mounted in `/srv`.
-```bash
-$ vagrant up
-$ vagrant ssh
-
-Welcome to Ubuntu 12.04 LTS (GNU/Linux 3.2.0-23-generic x86_64)
-$ cd /srv
-```
-
 ### License
 The content of this library is released under the **MIT License** by
 **Nature Delivered Ltd**.<br/> You can find a copy of this license at
@@ -75,6 +65,5 @@ http://www.opensource.org/licenses/mit or in [`LICENSE`][license].
 [travis]: https://travis-ci.org/graze/sort
 [travis-master]: https://travis-ci.org/graze/sort.png?branch=master
 [packagist]: https://packagist.org/packages/graze/sort
-[vagrant]: http://vagrantup.com
 [license]: LICENSE
 [schwartz]: http://en.wikipedia.org/wiki/Schwartzian_transform
