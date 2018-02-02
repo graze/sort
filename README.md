@@ -48,22 +48,7 @@ $sorted = $unsorted;
 usort($sorted, \Graze\Sort\comparison_fn($unsorted, [$foo, $bar]));
 ```
 
-## Contributing
-Contributions are accepted via Pull Request, but passing unit tests must be
-included before it will be considered for merge.
-```bash
-$ composer install
-$ vendor/bin/phpunit
-```
-
-### License
-The content of this library is released under the **MIT License** by
-**Nature Delivered Ltd**.<br/> You can find a copy of this license at
-http://www.opensource.org/licenses/mit or in [`LICENSE`][license].
-
 <!-- Links -->
 [travis]: https://travis-ci.org/graze/sort
 [travis-master]: https://travis-ci.org/graze/sort.png?branch=master
 [packagist]: https://packagist.org/packages/graze/sort
-[license]: LICENSE
-[schwartz]: http://en.wikipedia.org/wiki/Schwartzian_transform
