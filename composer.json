@@ -1,8 +1,6 @@
 {
     "name": "graze/sort",
     "description": "A collection of array sorting transforms and functions",
-    "homepage": "https://github.com/graze/sort",
-    "license": "MIT",
     "type": "library",
     "keywords": [
         "array",
@@ -15,12 +13,33 @@
         "sorting",
         "transform"
     ],
+    "homepage": "https://github.com/graze/sort",
+    "license": "MIT",
+    "config": {
+        "platform": {
+            "ext-simplexml": "1.0",
+            "ext-dom": "1.0",
+            "ext-tokenizer": "1.0",
+            "ext-xmlwriter": "1.0"
+        }
+    },
     "authors": [
         {
-            "name": "Graze tech team",
-            "homepage": "https://github.com/graze/sort/graphs/contributors"
+            "name": "Graze Developers",
+            "email": "developers@graze.com",
+            "homepage": "http://www.graze.com",
+            "role": "Development Team"
         }
     ],
+    "require": {
+        "php": "^5.5 | ^7.0"
+    },
+    "require-dev": {
+        "adlawson/timezone": "~1.0",
+        "phpunit/phpunit": "^4.2 | ^5.2",
+        "squizlabs/php_codesniffer": "^3.0",
+        "graze/standards": "^2.0"
+    },
     "autoload": {
         "files": [
             "src/fn.php"
@@ -28,12 +47,5 @@
         "psr-4": {
             "Graze\\": "src"
         }
-    },
-    "require": {
-        "php": ">=5.3"
-    },
-    "require-dev": {
-        "adlawson/timezone": "~1.0",
-        "phpunit/phpunit": "~4.0"
     }
 }
